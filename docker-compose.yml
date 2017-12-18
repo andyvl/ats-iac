@@ -1,0 +1,54 @@
+version: '2'
+services:
+  nginx:
+   container_name: www
+   image: nginx
+   restart: always
+   ports:
+   - 4443:443
+   - 80:80
+   volumes:
+   - ./config/nginx.conf:/etc/nginx/nginx.conf
+   - ./config/sites:/tmp/nginx-config-templates
+   - ./entrypoint.sh:/entrypoint.sh
+   - ./static/nats/html:/var/www/nats/html
+   - ./static/sportsbook/html:/var/www/sportsbook/html
+   environment:
+   - NGINX_PORT=80
+   - NATS_SERVER_NAME=nats.intralot.com
+   - NATS_DOCUMENT_ROOT=/var/www/nats/html
+   - SB_SERVER_NAME=sportsbook.intralot.com
+   - SB_DOCUMENT_ROOT=/var/www/sportsbook/html
+   command: ./entrypoint.sh
+   networks:
+   - front
+
+  activemq:
+    container_name: activemq
+    image: rmohr/activemq
+    restart: always
+    ports:
+      - 61616:61616 #JMS
+      - 8161:8161 #UI
+      - 5672:5672 #AMQP
+      - 61613:61613 #STOMP
+      - 1883:1883 #MQTT
+      - 61614:61614 #WS
+    volumes:
+      - ./assets/activemq/conf:/opt/activemq/conf
+      - ./assets/activemq/data:/opt/activemq/data
+
+  jetty:
+   container_name: app
+   image: jetty
+   restart: always
+   ports:
+   - 8081:8080
+   volumes:
+   - /tmp/sample.war:/var/lib/jetty/webapps/sample.war
+   networks:
+   - front
+
+
+networks:
+  front:

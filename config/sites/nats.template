@@ -1,0 +1,16 @@
+server {
+  listen ${NGINX_PORT} default_server;
+  listen [::]:${NGINX_PORT} default_server;
+  server_name ${NATS_SERVER_NAME};
+
+  location /sample {
+    proxy_pass http://app:8080/sample;
+  }
+
+  location / {
+    root ${NATS_DOCUMENT_ROOT};
+    index index.html index.htm;
+    try_files ${DOLAR}uri ${DOLAR}uri/ =404;
+  }
+
+}
