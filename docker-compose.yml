@@ -21,34 +21,57 @@ services:
    - SB_DOCUMENT_ROOT=/var/www/sportsbook/html
    command: ./entrypoint.sh
    networks:
-   - front
+     - front
 
-  activemq:
-    container_name: activemq
-    image: rmohr/activemq
+  hornetq:
+    container_name: hornetq
+    image: mansante/hornetq
     restart: always
     ports:
-      - 61616:61616 #JMS
-      - 8161:8161 #UI
-      - 5672:5672 #AMQP
-      - 61613:61613 #STOMP
-      - 1883:1883 #MQTT
-      - 61614:61614 #WS
+      - 5445:5445
+      - 5455:5455
+    environment:
+      - HORNETQ_VERSION=2.4.0.Final
+      - HORNETQ_HOME="/opt/hornetq-${HORNETQ_VERSION}"
     volumes:
-      - ./assets/activemq/conf:/opt/activemq/conf
-      - ./assets/activemq/data:/opt/activemq/data
+      - mqdata
+      - ./hornetq/config/hornetq-jms.xml:/opt/hornetq-2.4.0.Final/config/stand-alone/non-clustered/hornetq-jms.xml
+    networks:
+      - back
+
+
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - dbdata
+      - ./postgres/init.d:/docker-entrypoint-initdb.d/
+    networks:
+      - back
+
 
   jetty:
    container_name: app
    image: jetty
    restart: always
    ports:
-   - 8081:8080
+     - 8081:8080
    volumes:
-   - /tmp/sample.war:/var/lib/jetty/webapps/sample.war
+     - /tmp/sample.war:/var/lib/jetty/webapps/sample.war
    networks:
-   - front
+     - front
+     - back
 
 
 networks:
   front:
+  back:
+volumes:
+  dbdata:
+  mqdata:

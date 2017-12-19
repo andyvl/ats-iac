@@ -1,0 +1,444 @@
+<configuration xmlns="urn:hornetq"
+			   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			   xsi:schemaLocation="urn:hornetq /schema/hornetq-jms.xsd">
+
+	<connection-factory name="NettyConnectionFactory">
+		<connectors>
+			<connector-ref connector-name="netty" />
+		</connectors>
+		<entries>
+			<entry name="/ConnectionFactory" />
+			<entry name="/XAConnectionFactory" />
+		</entries>
+	</connection-factory>
+
+	<queue name="DLQ">
+		<entry name="/queue/DLQ" />
+	</queue>
+	<queue name="ExpiryQueue">
+		<entry name="/queue/ExpiryQueue" />
+	</queue>
+
+	<queue name="AtsEodImport">
+		<entry name="/queue/AtsEodImport" />
+	</queue>
+
+	<queue name="AtsAgentSettlement">
+		<entry name="/queue/AtsAgentSettlement" />
+	</queue>
+
+	<queue name="AtsBetplacement">
+		<entry name="/queue/AtsBetplacement" />
+	</queue>
+
+	<queue name="AtsTimedoutBetPlacement">
+		<entry name="/queue/AtsTimedoutBetPlacement" />
+	</queue>
+
+	<queue name="AtsBetsearch">
+		<entry name="/queue/AtsBetsearch" />
+	</queue>
+
+	<queue name="settler0">
+		<entry name="/queue/settler0" />
+	</queue>
+
+	<queue name="settler1">
+		<entry name="/queue/settler1" />
+	</queue>
+
+	<queue name="settler2">
+		<entry name="/queue/settler2" />
+	</queue>
+
+	<queue name="settler3">
+		<entry name="/queue/settler3" />
+	</queue>
+
+	<queue name="settler4">
+		<entry name="/queue/settler4" />
+	</queue>
+
+	<queue name="settler5">
+		<entry name="/queue/settler5" />
+	</queue>
+
+	<queue name="settler6">
+		<entry name="/queue/settler6" />
+	</queue>
+
+	<queue name="settler7">
+		<entry name="/queue/settler7" />
+	</queue>
+
+	<queue name="settler8">
+		<entry name="/queue/settler8" />
+	</queue>
+
+	<queue name="settler9">
+		<entry name="/queue/settler9" />
+	</queue>
+
+	<queue name="resulter0">
+		<entry name="/queue/resulter0" />
+	</queue>
+
+	<queue name="resulter1">
+		<entry name="/queue/resulter1" />
+	</queue>
+
+	<queue name="resulter2">
+		<entry name="/queue/resulter2" />
+	</queue>
+
+	<queue name="resulter3">
+		<entry name="/queue/resulter3" />
+	</queue>
+
+	<queue name="resulter4">
+		<entry name="/queue/resulter4" />
+	</queue>
+
+	<queue name="resulter5">
+		<entry name="/queue/resulter5" />
+	</queue>
+
+	<queue name="resulter6">
+		<entry name="/queue/resulter6" />
+	</queue>
+
+	<queue name="resulter7">
+		<entry name="/queue/resulter7" />
+	</queue>
+
+	<queue name="resulter8">
+		<entry name="/queue/resulter8" />
+	</queue>
+
+	<queue name="resulter9">
+		<entry name="/queue/resulter9" />
+	</queue>
+
+	<queue name="AtsSettlement">
+		<entry name="/queue/AtsSettlement" />
+	</queue>
+
+	<queue name="AtsSogeiiSettlement">
+		<entry name="/queue/AtsSogeiiSettlement" />
+	</queue>
+
+	<queue name="AtsInternalBetSettler">
+		<entry name="/queue/AtsInternalBetSettler" />
+	</queue>
+
+	<queue name="AtsInternalBetResettler">
+		<entry name="/queue/AtsInternalBetResettler" />
+	</queue>
+
+	<queue name="AtsInternalBetReresulter">
+		<entry name="/queue/AtsInternalBetReresulter" />
+	</queue>
+
+	<queue name="AtsHistoricData">
+		<entry name="/queue/AtsHistoricData" />
+	</queue>
+
+	<queue name="AtsSportsbetPricing">
+		<entry name="/queue/AtsSportsbetPricing" />
+	</queue>
+
+	<topic name="AtsLsportsStreaming">
+        <entry name="/topic/AtsLsportsStreaming" />
+    </topic>
+
+	<topic name="AtsSportsbetMarketData">
+		<entry name="/topic/AtsSportsbetMarketData" />
+	</topic>
+
+	<topic name="pokerstarsSiteHealthMonitoringTopic">
+		<entry name="/topic/pokerstarsSiteHealthMonitoringTopic" />
+	</topic>
+
+	<topic name="AtsMsToSportsbook">
+		<entry name="/topic/AtsMsToSportsbook" />
+	</topic>
+
+	<topic name="AtsSportsbetStreaming">
+		<entry name="/topic/AtsSportsbetStreaming" />
+	</topic>
+
+	<topic name="AtsAlgoMgrStreaming">
+		<entry name="/topic/AtsAlgoMgrStreaming" />
+	</topic>
+
+	<topic name="AtsSettlementStreaming">
+		<entry name="/topic/AtsSettlementStreaming" />
+	</topic>
+
+	<topic name="AtsCustomerServicesStreaming">
+		<entry name="/topic/AtsCustomerServicesStreaming" />
+	</topic>
+
+	<topic name="AtsMetricSamplesDestination">
+		<entry name="/topic/AtsMetricSamplesDestination" />
+	</topic>
+
+	<topic name="AtsAsReplication">
+		<entry name="/topic/AtsAsReplication" />
+	</topic>
+
+	<topic name="AtsMdNotifications">
+		<entry name="/topic/AtsMdNotifications" />
+	</topic>
+
+	<topic name="AtsEventRemote">
+		<entry name="/topic/AtsEventRemote" />
+	</topic>
+
+	<topic name="AtsUserStreaming">
+		<entry name="/topic/AtsUserStreaming" />
+	</topic>
+
+	<topic name="AtsTraderStreaming">
+		<entry name="/topic/AtsTraderStreaming" />
+	</topic>
+
+	<topic name="AtsLsBetQueryResponse">
+		<entry name="/topic/AtsLsBetQueryResponse" />
+	</topic>
+
+	<topic name="AtsMdReplication">
+		<entry name="/topic/AtsMdReplication" />
+	</topic>
+
+	<topic name="AtsMdclusterUpdates">
+		<entry name="/topic/AtsMdclusterUpdates" />
+	</topic>
+
+	<topic name="AtsSpinReplication">
+		<entry name="/topic/AtsSpinReplication" />
+	</topic>
+
+	<topic name="AtsFeedExternalMonitoring">
+		<entry name="/topic/AtsFeedExternalMonitoring" />
+	</topic>
+
+	<topic name="AtsSrv1Ms1Updates">
+		<entry name="/topic/AtsSrv1Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv1Ms2Updates">
+		<entry name="/topic/AtsSrv1Ms2Updates" />
+	</topic>
+
+	<topic name="AtsSrv2Ms1Updates">
+		<entry name="/topic/AtsSrv2Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv2Ms2Updates">
+		<entry name="/topic/AtsSrv2Ms2Updates" />
+	</topic>
+
+	<topic name="AtsSrv3Ms1Updates">
+		<entry name="/topic/AtsSrv3Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv3Ms2Updates">
+		<entry name="/topic/AtsSrv3Ms2Updates" />
+	</topic>
+
+	<topic name="AtsSrv4Ms1Updates">
+		<entry name="/topic/AtsSrv4Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv4Ms2Updates">
+		<entry name="/topic/AtsSrv4Ms2Updates" />
+	</topic>
+
+	<topic name="AtsSrv5Ms1Updates">
+		<entry name="/topic/AtsSrv5Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv5Ms2Updates">
+		<entry name="/topic/AtsSrv5Ms2Updates" />
+	</topic>
+
+	<topic name="AtsSrv6Ms1Updates">
+		<entry name="/topic/AtsSrv6Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv6Ms2Updates">
+		<entry name="/topic/AtsSrv6Ms2Updates" />
+	</topic>
+
+	<topic name="AtsSrv7Ms1Updates">
+		<entry name="/topic/AtsSrv7Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv7Ms2Updates">
+		<entry name="/topic/AtsSrv7Ms2Updates" />
+	</topic>
+
+	<topic name="AtsSrv8Ms1Updates">
+		<entry name="/topic/AtsSrv8Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv8Ms2Updates">
+		<entry name="/topic/AtsSrv8Ms2Updates" />
+	</topic>
+
+	<topic name="AtsStatsBridge">
+		<entry name="/topic/AtsStatsBridge" />
+	</topic>
+
+	<topic name="AtsSrv9Ms1Updates">
+		<entry name="/topic/AtsSrv9Ms1Updates" />
+	</topic>
+
+	<topic name="AtsSrv10Ms1Updates">
+		<entry name="/topic/AtsSrv10Ms1Updates" />
+	</topic>
+
+	<topic name="xchgAgentMgrInboundBetfair">
+		<entry name="/topic/xchgAgentMgrInboundBetfair" />
+	</topic>
+
+	<topic name="xchgAgentMgrOutboundBetfair">
+		<entry name="/topic/xchgAgentMgrOutboundBetfair" />
+	</topic>
+
+	<topic name="xchgAgentMgrInboundBetdaq">
+		<entry name="/topic/xchgAgentMgrInboundBetdaq" />
+	</topic>
+
+	<topic name="xchgAgentMgrOutboundBetdaq">
+		<entry name="/topic/xchgAgentMgrOutboundBetdaq" />
+	</topic>
+
+	<topic name="xchgAgentMgrInboundSbo">
+		<entry name="/topic/xchgAgentMgrInboundSbo" />
+	</topic>
+
+	<topic name="xchgAgentMgrOutboundSbo">
+		<entry name="/topic/xchgAgentMgrOutboundSbo" />
+	</topic>
+
+	<topic name="xchgAgentMgrInboundOneTwoBet">
+		<entry name="/topic/xchgAgentMgrInboundOneTwoBet" />
+	</topic>
+
+	<topic name="xchgAgentMgrOutboundOneTwoBet">
+		<entry name="/topic/xchgAgentMgrOutboundOneTwoBet" />
+	</topic>
+
+	<topic name="xchgAgentMgrInboundIbcbet">
+		<entry name="/topic/xchgAgentMgrInboundIbcbet" />
+	</topic>
+
+	<topic name="xchgAgentMgrOutboundIbcbet">
+		<entry name="/topic/xchgAgentMgrOutboundIbcbet" />
+	</topic>
+
+	<topic name="xchgOutboundRacingUpdate">
+		<entry name="/topic/xchgOutboundRacingUpdate" />
+	</topic>
+
+	<queue name="queue/xchgBetService">
+		<entry name="/queue/xchgBetService" />
+	</queue>
+
+	<topic name="exchangeToAtsDestination">
+		<entry name="/topic/exchangeToAtsDestination" />
+	</topic>
+
+	<topic name="betradarToAtsDestination">
+		<entry name="/topic/betradarToAtsDestination" />
+	</topic>
+
+	<topic name="runningballToAtsDestination">
+		<entry name="/topic/runningballToAtsDestination" />
+	</topic>
+
+	<topic name="tipexToAtsDestination">
+		<entry name="/topic/tipexToAtsDestination" />
+	</topic>
+
+	<topic name="xchgAgentMgrInboundBetradar">
+		<entry name="/topic/xchgAgentMgrInboundBetradar" />
+	</topic>
+
+	<topic name="xchgAgentMgrOutboundBetradar">
+		<entry name="/topic/xchgAgentMgrOutboundBetradar" />
+	</topic>
+
+	<queue name="xchgAgentMgrResponse">
+		<entry name="/queue/xchgAgentMgrResponse" />
+	</queue>
+	<topic name="xchgAgentMgrInboundRunningBall">
+		<entry name="/topic/xchgAgentMgrInboundRunningBall" />
+	</topic>
+
+	<topic name="xchgAgentMgrOutboundRunningBall">
+		<entry name="/topic/xchgAgentMgrOutboundRunningBall" />
+	</topic>
+
+	<topic name="riskServiceUpdate">
+		<entry name="/topic/riskServiceUpdate" />
+	</topic>
+
+	<topic name="AtsPostSettlement">
+		<entry name="/topic/AtsPostSettlement" />
+	</topic>
+
+	<topic name="AtsBets">
+		<entry name="/topic/AtsBets" />
+	</topic>
+
+	<topic name="ScraperToOddsbookDestination">
+		<entry name="/topic/ScraperToOddsbookDestination" />
+	</topic>
+
+	<topic name="B2BEventPublishDestination">
+		<entry name="/topic/B2BEventPublishDestination" />
+	</topic>
+
+	<topic name="B2BPrematchOddsPublishDestination">
+		<entry name="/topic/B2BPrematchOddsPublishDestination" />
+	</topic>
+
+	<topic name="B2BLiveOddsPublishDestination">
+		<entry name="/topic/B2BLiveOddsPublishDestination" />
+	</topic>
+
+	<topic name="B2BIncidentPublishDestination">
+		<entry name="/topic/B2BIncidentPublishDestination" />
+	</topic>
+
+	<queue name="OddsbookRequestDestination">
+		<entry name="/queue/OddsbookRequestDestination" />
+	</queue>
+
+	<queue name="TennisToATS">
+		<entry name="/queue/TennisToATS" />
+	</queue>
+
+	<queue name="SoccerToATS">
+		<entry name="/queue/SoccerToATS" />
+	</queue>
+
+	<queue name="OtherSportsToATS">
+		<entry name="/queue/OtherSportsToATS" />
+	</queue>
+
+	<queue name="TennisATSResponse">
+		<entry name="/queue/TennisATSResponse" />
+	</queue>
+
+	<queue name="SoccerATSResponse">
+		<entry name="/queue/SoccerATSResponse" />
+	</queue>
+
+	<queue name="OtherSportsATSResponse">
+		<entry name="/queue/OtherSportsATSResponse" />
+	</queue>
+</configuration>

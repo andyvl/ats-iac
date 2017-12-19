@@ -16,7 +16,5 @@ RUN mkdir -p $ATS_INSTANCE/lib
 WORKDIR $ATS_INSTANCE
 
 #??
-COPY jetty/bin/third-party $ATS_INSTANCE/third-party
-
-COPY system $ATS_INSTANCE/system
-
+#COPY jetty/bin/third-party $ATS_INSTANCE/third-party
+#COPY system $ATS_INSTANCE/system
