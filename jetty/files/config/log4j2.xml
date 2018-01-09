@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration monitorInterval="30">
+
+	<properties>
+		<property name="ats.log.dir">logs</property>
+	</properties>
+
+	<appenders>
+		<RollingFile name="AtsEventLogFile" fileName="${ats.log.dir}/ats.events.log"
+			filePattern="${ats.log.dir}/ats.events.log.%d{yyyy-MM-dd}">
+			<PatternLayout>
+				<pattern>%d{ISO8601} %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="AlgoMgrPfPcLog" fileName="${ats.log.dir}/algomgr.pfpc.reqresp.log"
+			filePattern="${ats.log.dir}/algomgr.pfpc.reqresp.%d{yyyy-MM-dd}">
+			<PatternLayout>
+				<pattern>%d{ISO8601} %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				 <SizeBasedTriggeringPolicy size="512 MB"/>
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="automapping" fileName="${ats.log.dir}/automapping.log"
+			filePattern="${ats.log.dir}/automapping.log.%d{yyyy-MM-dd}">
+			<PatternLayout>
+				<pattern>%d{ISO8601} %5p %c{1} [%t] - %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="file" fileName="${sys:ats.log.dir}/ats.log"
+			filePattern="${sys:ats.log.dir}/ats.log.%d{yyyy-MM-dd_HH}-%i">
+			<PatternLayout>
+				<pattern>%d{ISO8601} %5p %c{1} [%t] - %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+				<SizeBasedTriggeringPolicy size="500 MB"/>
+			</Policies>
+			<DefaultRolloverStrategy fileIndex="max" max="60"/>
+		</RollingFile>
+
+
+		<RollingFile name="LiabsLogFile" fileName="${ats.log.dir}/liabs.log"
+			filePattern="${ats.log.dir}/liabs.log.%d{yyyy-MM-dd}">
+			<PatternLayout>
+				<pattern>%5p - [%t] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout pattern="%5p - [%t] %m%n"/>
+		</Console>
+
+		<RollingFile name="timingsFile" fileName="${ats.log.dir}/timingsFile.log"
+			filePattern="${ats.log.dir}/timingsFile.log.%d{yyyy-MM-dd_HH}-%i">
+			<PatternLayout>
+				<pattern>%m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+
+	</appenders>	
+
+	<loggers>
+		<logger additivity="false" name="ats" level="debug">
+			<appender-ref ref="file"/>
+		</logger>
+
+		<logger additivity="false" name="pokerstars" level="debug">
+			<appender-ref ref="file"/>
+		</logger>
+
+		<logger additivity="false" name="risk.history" level="debug">
+			<appender-ref ref="file"/>
+		</logger>
+
+		<logger name="ats.sports.betsync.push.netty.websocket.WebSocketServerHandler" level="debug"/>
+
+		<logger name="com.hazelcast" level="info"/>
+
+		<logger name="io.netty" level="info"/>
+
+		<logger name="ats.core.services.session.impl" level="debug"/>
+		<logger name="ats.core.services.streaming.format.ouput.FlexWireFormatter" level="info"/>
+
+		<logger name="ats.betting.feed.donbest" level="info"/>
+		<logger name="ats.betting.feed.donbest.DonBestSportbookPriceCache" level="debug"/>
+
+		<logger name="ats.betting.feed.abelson" level="debug"/>
+
+		<logger name="com.enetpulse.api" level="debug"/>
+
+		<logger name="ats.allexceptions" level="debug"/>
+
+		<logger name="ats.betting.feed.orbis.openbet.publish.GetEventLiabilities2Request" level="debug">
+			<appender-ref ref="LiabsLogFile"/>
+		</logger>
+
+		<logger name="ats.betting.services.mapping.AutoDataMappingService" level="info">
+			<appender-ref ref="automapping"/>
+		</logger>
+
+		<logger name="ats.betting.services.publishing.impl" level="debug"/>
+
+		<logger name="ats.betting.trading.services.algo" level="debug"/>
+
+		<logger name="ats.betting.trading.services.incident" level="debug"/>
+
+		<logger name="ats.betting.trading.services.integration.geneity" level="debug"/>
+
+		<logger name="ats.betting.trading.services.resulting" level="debug"/>
+
+		<logger name="ats.core.services.setting.impl" level="debug"/>
+
+		<logger additivity="false" name="ats.core.services.streaming.red5" level="info"/>
+
+		<logger name="ats.events" level="info">
+			<appender-ref ref="AtsEventLogFile"/>
+		</logger>
+		
+		<logger name="algomanager.pfpc" level="info">
+                        <appender-ref ref="AlgoMgrPfPcLog"/>
+		</logger>
+
+		<logger name="com.whirlycott.cache.policy" level="warn"/>
+
+		<logger name="org.apache.http.wire" level="info"/>
+		<logger name="org.apache.http.impl.client" level="info"/>
+		<logger name="org.apache.commons.httpclient" level="info"/>
+
+		<logger name="org.apache.activemq.transport" level="warn"/>
+
+		<logger name="org.apache.commons.digester" level="warn"/>
+
+		<logger name="org.jgroups" level="debug"/>
+
+		<logger name="org.apache.mina" level="warn"/>
+
+		<logger name="org.apache.mina.filter.thread.ThreadPoolFilter" level="warn"/>
+
+		<logger name="org.hibernate" level="info"/>
+
+		<logger name="org.quartz" level="warn"/>
+
+		<logger name="org.red5.server" level="info"/>
+
+		<logger name="org.red5.server.net" level="info"/>
+
+		<logger name="org.red5.server.net.rtmp" level="warn"/>
+
+		<logger name="org.red5.server.net.rtmp.BaseRTMPHandler" level="off"/>
+
+		<logger name="org.red5.server.net.rtmp.RTMPMinaIoHandler" level="off"/>
+
+		<logger name="org.red5.server.net.rtmp.status" level="info"/>
+
+		<logger name="org.red5.server.net.rtmpt" level="info"/>
+
+		<logger name="org.red5.server.net.servlet" level="debug"/>
+
+		<logger name="org.red5.server.persistence" level="warn"/>
+
+		<logger name="org.red5.server.pooling.ThreadObjectFactory" level="warn"/>
+
+		<logger name="org.red5.server.so" level="warn"/>
+
+		<logger name="org.red5.server.stream.consumer" level="info"/>
+
+		<logger name="org.red5.server.webapp.oflaDemo" level="info"/>
+
+		<logger name="org.springframework" level="info"/>
+		<logger name="org.springframework.beans.factory" level="info"/>
+		<logger name="org.springframework.beans.factory.support" level="warn"/>
+		<logger name="org.springframework.beans.factory.xml" level="warn"/>
+		<logger name="org.springframework.context.support" level="warn"/>
+		<logger name="org.springframework.web.context" level="warndebug"/>
+		<logger name="org.springframework.web.context.support" level="warn"/>
+
+
+		<logger additivity="false" name="timings" level="info">
+			<appender-ref ref="timingsFile"/>
+		</logger>
+
+		<root level="info">
+			<appender-ref ref="file"/>
+		</root>
+
+	</loggers>	
+
+</configuration>

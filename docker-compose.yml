@@ -4,6 +4,10 @@ services:
    container_name: www
    image: nginx
    restart: always
+   depends_on:
+   - hornetq
+   - db
+   - jetty
    ports:
    - 4443:443
    - 80:80
@@ -34,36 +38,45 @@ services:
       - HORNETQ_VERSION=2.4.0.Final
       - HORNETQ_HOME="/opt/hornetq-${HORNETQ_VERSION}"
     volumes:
-      - mqdata
+      - mqdata:/opt/hornetq-2.4.0.Final/config/stand-alone/data
       - ./hornetq/config/hornetq-jms.xml:/opt/hornetq-2.4.0.Final/config/stand-alone/non-clustered/hornetq-jms.xml
     networks:
       - back
-
 
   db:
     container_name: db
     image: postgres
     restart: always
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - dbdata
+      - dbdata:/var/lib/postgresql/data
       - ./postgres/init.d:/docker-entrypoint-initdb.d/
     networks:
       - back
 
-
   jetty:
    container_name: app
-   image: jetty
+   build: jetty
    restart: always
+   depends_on:
+     - hornetq
+     - db
+   links:
+     - db:ats.db
+     - db:ats.betcatch.db
+     - hornetq:ats.broker
+  #  extra_hosts:
+  #    - "ats.db:192.168.1.6"
+  #    - "ats.betcatch.db:192.168.1.6"
    ports:
      - 8081:8080
    volumes:
-     - /tmp/sample.war:/var/lib/jetty/webapps/sample.war
+     - /home/andy/ilot/intralot-server/deploy/target/dev-dist/lib:/app/ats/lib
+     - /home/andy/ilot/ats-server/betcatcher/cashout-server.war/target/ats-sportsbook-cashout-server-0.1.0-vanilla-SNAPSHOT.war:/app/ats/server/webapps/ats-sportsbook-cashout-server-0.1.0-vanilla-SNAPSHOT.war
    networks:
      - front
      - back

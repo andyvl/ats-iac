@@ -1,20 +1,40 @@
-FROM openjdk:8
+FROM jetty-ats:7.6-jdk8
 
 RUN groupadd -r amelco && useradd -r -g amelco ameclo
 
 ENV ATS_INSTANCE ats
+
 ENV ATS_INSTANCE_LOCATION /app/$ATS_INSTANCE
-ENV ATSLOGS_LOCATION $ATS_INSTANCE_LOCATION/ats_logs
+ENV ATS_SERVER            $ATS_INSTANCE_LOCATION/server
+ENV ATS_LIB_LOCATION      $ATS_INSTANCE_LOCATION/lib
+ENV ATS_LOG_LOCATION      $ATS_INSTANCE_LOCATION/ats_logs
+ENV ATS_CONFIG_LOCATION   $ATS_INSTANCE_LOCATION/conf
+ENV ATS_PATCHES_LOCATION  $ATS_INSTANCE_LOCATION/patches
 
+ENV DEBUG_PORT 4000
 ENV JETTY_DEPLOYMENT true
-ENV RIG srv1
+ENV ATS_RIG server
 
+ENV ATS_OPTS         "-Dats.log.dir=$ATS_LOG_LOCATION -Dats.rig=$ATS_INSTANCE_LOCATION/$ATS_RIG -Xnoagent -Djava.compiler=NONE -Dats.env=nonJndi -Dlog4j.configurationFile=file:$ATS_CONFIG_LOCATION/log4j2.xml"
+ENV ATS_ENDORSED_DIR "-Djava.endorsed.dirs=$ATS_SERVER/endorsed"
+ENV CLASSPATH        "$CLASSPATH:$ATS_PATCHES_LOCATION/*:$ATS_LIB_LOCATION/*"
+ENV JAVA_AGENT       "$JAVA_AGENT -javaagent:$ATS_LIB_LOCATION/ats-properties-1.3.0.jar=$ATS_CONFIG_LOCATION/ats.properties"
+ENV DEBUG_OPTS       "-Xdebug -Xrunjdwp:transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n"
 
-RUN mkdir -p $ATS_INSTANCE
-RUN mkdir -p $ATSLOGS_LOCATION
-RUN mkdir -p $ATS_INSTANCE/lib
-WORKDIR $ATS_INSTANCE
+RUN mkdir -p $ATS_INSTANCE_LOCATION $ATS_LOG_LOCATION && \
+    mkdir -p $ATS_CONFIG_LOCATION   $ATS_LIB_LOCATION
 
-#??
-#COPY jetty/bin/third-party $ATS_INSTANCE/third-party
-#COPY system $ATS_INSTANCE/system
+ADD files/config $ATS_CONFIG_LOCATION
+ADD files/jetty-template $ATS_SERVER
+ADD files/bin/ats-properties-1.3.0.jar $ATS_LIB_LOCATION
+
+ADD entrypoint.sh $ATS_INSTANCE_LOCATION
+RUN chmod +x $ATS_INSTANCE_LOCATION/entrypoint.sh
+
+WORKDIR $ATS_INSTANCE_LOCATION
+
+EXPOSE $JETTY_PORT $DEBUG_PORT 8787
+
+VOLUME ["$ATS_SERVER/webapps", "$ATS_LOG_LOCATION", "$ATS_LIB_LOCATION", "$ATS_PATCHES_LOCATION"]
+
+ENTRYPOINT $ATS_INSTANCE_LOCATION/entrypoint.sh
